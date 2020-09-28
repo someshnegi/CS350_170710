@@ -1,0 +1,81 @@
+//1.1 Take L M
+declare
+fun {Take L M}
+  case L
+  of nil
+  then nil
+  else
+     if 0>=M
+     then nil
+     else L.1|{Take L.2 M-1}
+     end
+  end
+end
+
+//1.2
+declare
+fun {ReverseList2 L}
+   local ReverseAux in
+      fun {ReverseAux Remainder Partial}
+         case Remainder
+         of nil then Partial
+         [] H|T then {ReverseAux T H|Partial}
+         end
+      end
+      {ReverseAux L nil}
+   end
+end
+fun {Take L M}
+  case L
+  of nil
+  then nil
+  else
+     if 0>=M
+     then nil
+     else L.1|{Take L.2 M-1}
+     end
+  end
+end
+fun {Last L M}
+   {Take {ReverseList2 L} M}
+end
+
+//1.3 Merge L M
+declare
+fun {Merge L M}
+   {Sort {Append L M} fun {$ X Y} X < Y end}
+end
+
+//2.1 ZipWidth BinOp L M 
+declare
+fun {ZipWith BinOp L M}
+      case L of nil then nil 
+      [] H|T then {BinOp H M.1} | {ZipWith BinOp T M.2}
+      end
+end
+
+//2.2
+declare
+fun {MapNew L Funct}
+   case L
+   of nil
+   then nil
+   [] H|T then {FoldR [H] fun {$ X Y}{Funct X} end 1}|{MapNew T Funct}
+   end
+end
+
+
+//2.3 FoldL L BinOp I 
+fun {FoldL L BinOp I}
+   case L
+   of nil
+   then I
+   [] H|T then {FoldL T BinOp {BinOp I H}}
+   end
+end
+
+//3.1
+
+//3.2
+
+//4
